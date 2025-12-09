@@ -1,254 +1,340 @@
-
 /* PALETA DE CORES TEMA ROBLOX */
 :root {
---roblox-blue: #00A2FF; /* Azul de destaque */
---roblox-red: #E21B35; /* Vermelho de destaque (Robux) */
---bg-dark: #121212;
---card-bg: #1e1e1e;
---text-light: #f0f0f0;
---text-secondary: #c0c0c0;
+    --roblox-blue: #00A2FF; /* Azul de destaque (Link, Borda) */
+    --roblox-red: #E21B35; /* Vermelho de destaque (Botões, Robux) */
+    --roblox-red-dark: #941122; /* Sombra do botão */
+    --bg-dark: #121212; /* Fundo principal */
+    --card-bg: #1e1e1e; /* Fundo dos cards/modais */
+    --text-light: #f0f0f0; /* Texto principal */
+    --text-secondary: #c0c0c0; /* Texto secundário/lead */
+    --secondary-btn-bg: #34383f; /* Fundo botão secundário */
 }
 
-/* FONTS & RESET */
+/* --- FONTS & RESET --- */
 * {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
 }
 
 body {
-background: var(--bg-dark);
-overflow-x: hidden;
+    background: var(--bg-dark);
+    overflow-x: hidden;
 }
 
-/* BACKGROUND DE BLOCÕES (STUDS) - MAIS TEMÁTICO */
+/* --- BACKGROUND DE BLOCÕES (STUDS) --- */
 .bg-animation {
-position: fixed;
-top: 0; left: 0;
-width: 100%;
-height: 100%;
-/* Padrão de blocos */
-background-image: radial-gradient(circle at 1px 1px, #222 1px, transparent 0);
-background-size: 20px 20px;
-opacity: 0.1;
-z-index: -2;
-/* Animação sutil */
-animation: subtle-shift 20s linear infinite alternate;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    /* Padrão de blocos */
+    background-image: radial-gradient(circle at 1px 1px, #222 1px, transparent 0);
+    background-size: 20px 20px;
+    opacity: 0.1;
+    z-index: -2;
+    animation: subtle-shift 20s linear infinite alternate;
 }
 
 @keyframes subtle-shift {
-0% { background-position: 0 0; }
-100% { background-position: 100px 100px; }
+    0% { background-position: 0 0; }
+    100% { background-position: 100px 100px; }
 }
 
-/* CONTAINER CENTRALIZAÇÃO */
+/* --- CONTAINER & CARD --- */
 .container {
-display: flex;
-justify-content: center;
-align-items: center;
-min-height: 100vh;
-padding: 15px; /* Reduzido o padding em mobile */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 15px; /* Mobile */
 }
 
-/* CARD CENTRAL */
 .card {
-max-width: 480px;
-width: 100%;
-background: var(--card-bg);
-padding: 30px; /* Reduzido o padding para telas menores */
-border-radius: 12px;
-border: 3px solid var(--roblox-blue); 
-box-shadow: 0 0 40px rgba(0, 162, 255, 0.2);
-text-align: center;
+    max-width: 480px;
+    width: 100%;
+    background: var(--card-bg);
+    padding: 30px; /* Mobile */
+    border-radius: 12px;
+    border: 3px solid var(--roblox-blue); 
+    box-shadow: 0 0 40px rgba(0, 162, 255, 0.2);
+    text-align: center;
 }
 
-/* HEADER ROBLOX */
+/* --- HEADER & TEXTOS --- */
 .header {
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 10px;
-margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .logo {
-width: 160px; /* Levemente reduzido para mobile */
-filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+    width: 160px; 
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
 }
 
 .subtitle {
-font-size: 16px; /* Ajuste para caber melhor */
-color: var(--roblox-blue);
-letter-spacing: 2px;
-font-weight: bold;
+    font-size: 16px; 
+    color: var(--roblox-blue);
+    letter-spacing: 2px;
+    font-weight: bold;
 }
 
-/* CONTEÚDO PRINCIPAL (HERO) */
 .hero {
-padding-top: 15px;
+    padding-top: 15px;
 }
 
-/* TEXTOS */
 .title {
-font-family: "Bebas Neue", sans-serif;
-font-size: 42px; /* Reduzido para mobile */
-color: var(--text-light);
-text-shadow: 2px 2px var(--roblox-red); 
-margin-bottom: 10px;
+    font-family: "Bebas Neue", sans-serif;
+    font-size: 42px; 
+    color: var(--text-light);
+    text-shadow: 2px 2px var(--roblox-red); 
+    margin-bottom: 10px;
 }
 
 .lead {
-color: var(--text-secondary);
-font-size: 16px; /* Reduzido para mobile */
-font-weight: 400;
-margin-bottom: 25px;
+    color: var(--text-secondary);
+    font-size: 16px; 
+    font-weight: 400;
+    margin-bottom: 25px;
 }
 
-/* BOTÃO ESTILO ROBLOX */
+/* --- BOTÕES --- */
+/* Estilos base para ambos os botões principais */
+.btn-base {
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: 0.2s;
+    text-transform: uppercase;
+}
+
 .btn-main {
-background: var(--roblox-red);
-border: none;
-color: white;
-padding: 16px 30px; /* Padding ajustado */
-border-radius: 8px;
-font-size: 20px; /* Tamanho ajustado */
-cursor: pointer;
-font-weight: 700;
-letter-spacing: 1px;
-transition: 0.2s;
-box-shadow: 0 6px 0 #941122, 0 0 10px rgba(226, 27, 53, 0.5); 
-text-transform: uppercase;
-width: 100%; /* Novo: Ocupa toda a largura do card em mobile */
-max-width: 300px; /* Limite a largura para não ficar muito grande em desktop */
+    /* Estilos do btn-base já aplicados implicitamente */
+    background: var(--roblox-red);
+    padding: 16px 30px; 
+    font-size: 20px; 
+    box-shadow: 0 6px 0 var(--roblox-red-dark), 0 0 10px rgba(226, 27, 53, 0.5); 
+    width: 100%; 
+    max-width: 300px; 
 }
 
 .btn-main:hover {
-transform: translateY(-3px); /* Efeito de hover mais sutil */
-box-shadow: 0 8px 0 #941122, 0 0 15px rgba(226, 27, 53, 0.7);
+    transform: translateY(-3px); 
+    box-shadow: 0 8px 0 var(--roblox-red-dark), 0 0 15px rgba(226, 27, 53, 0.7);
 }
 
 .btn-main:active {
-transform: translateY(3px);
-box-shadow: 0 3px 0 #941122;
+    transform: translateY(3px);
+    box-shadow: 0 3px 0 var(--roblox-red-dark);
 }
 
 .btn-secondary {
-background: #34383f;
-color: #fff;
-border: none;
-padding: 10px 20px;
-border-radius: 5px;
-cursor: pointer;
-transition: background 0.2s;
+    background: var(--secondary-btn-bg);
+    color: var(--text-light); /* Cor do texto ajustada */
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background 0.2s;
+    text-transform: none; /* Não precisa ser uppercase */
 }
 
 .btn-secondary:hover {
-background: #4a4f58;
+    background: #4a4f58;
 }
 
-/* FILA */
+/* --- FILA --- */
 .queue-screen {
-margin-top: 25px;
-padding: 25px 20px;
-display: none;
-animation: fadeIn 0.7s ease forwards;
-background: #2a2a2a;
-border-radius: 8px;
-border: 1px solid var(--roblox-blue);
+    margin-top: 25px;
+    padding: 25px 20px;
+    display: none;
+    animation: fadeIn 0.7s ease forwards;
+    background: #2a2a2a;
+    border-radius: 8px;
+    border: 1px solid var(--roblox-blue);
 }
 
 .queue-screen p, .queue-screen div {
-color: var(--text-secondary);
+    color: var(--text-secondary);
 }
 
 .queue-title {
-font-size: 28px;
-font-family: "Bebas Neue", sans-serif;
-color: var(--roblox-blue);
-margin-bottom: 10px;
+    font-size: 28px;
+    font-family: "Bebas Neue", sans-serif;
+    color: var(--roblox-blue);
+    margin-bottom: 10px;
 }
 
 /* SPINNER QUADRADO ROBLOX */
 .spinner {
-display: flex;
-justify-content: center;
-margin: 25px 0;
-gap: 12px; 
+    display: flex;
+    justify-content: center;
+    margin: 25px 0;
+    gap: 12px; 
 }
 
 .square {
-width: 18px; 
-height: 18px;
-background: var(--roblox-red);
-animation: jump 0.7s infinite alternate;
-border-radius: 3px; 
+    width: 18px; 
+    height: 18px;
+    background: var(--roblox-red);
+    animation: jump 0.7s infinite alternate;
+    border-radius: 3px; 
 }
 
-/* MODAL */
+.square2 { animation-delay: 0.25s; } /* Reintroduzido para spinner */
+.square3 { animation-delay: 0.5s; } /* Reintroduzido para spinner */
+
+/* --- MODAL --- */
+.modal-back {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none; /* O JS muda para flex */
+    z-index: 1000;
+    justify-content: center; 
+    align-items: center;
+}
+
+.modal {
+    background: var(--card-bg);
+    color: var(--text-light);
+    width: 90%;
+    max-width: 450px;
+    padding: 30px;
+    border-radius: 12px;
+    border: 2px solid var(--roblox-red);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    animation: pop 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
+}
+
+.modal-title {
+    font-family: "Bebas Neue";
+    font-size: 32px;
+    color: var(--roblox-red);
+    margin-bottom: 15px;
+}
+
+.modal p { /* Novo: Estilo para o parágrafo de instrução */
+    color: var(--text-secondary);
+    margin-bottom: 5px;
+}
+
+.checkbox {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 25px; /* Margem maior para separar dos botões */
+}
+
+/* Novo estilo aprimorado para o Checkbox */
+.checkbox input[type="checkbox"] {
+    appearance: none;
+    width: 22px; 
+    height: 22px;
+    background-color: #34383f;
+    border: 2px solid var(--roblox-blue);
+    border-radius: 6px; 
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+    transition: 0.2s;
+    flex-shrink: 0; /* Impede que o checkbox encolha */
+}
+
+.checkbox input[type="checkbox"]:checked {
+    background-color: var(--roblox-blue);
+    border-color: var(--roblox-blue); 
+}
+
+.checkbox input[type="checkbox"]::before {
+    content: "✓";
+    color: white;
+    font-size: 18px; 
+    transform: scale(0);
+    transition: transform 0.2s ease-in-out;
+}
+
+.checkbox input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}
+
 .modal-actions {
-display: flex;
-/* Novo: Altera de flex-end para space-between em telas menores */
-justify-content: space-between; 
-gap: 15px;
-margin-top: 30px;
+    display: flex;
+    justify-content: space-between; /* Mobile: Space-between */
+    gap: 15px;
+    margin-top: 20px; /* Reduzida a margem, já que o checkbox tem margem maior */
 }
 
+.modal-actions .btn-main, .modal-actions .btn-secondary {
+    width: 50%; /* Faz ambos ocuparem 50% em mobile */
+    padding: 12px 20px;
+    font-size: 16px;
+}
+
+/* Apenas o btn-main precisa do override de shadow, já que o secundário não tem */
 .modal-actions .btn-main {
-width: 50%; /* Faz o botão QUERO GANHAR ocupar metade do espaço */
-/* Overrides anteriores do .btn-main */
-padding: 12px 20px;
-font-size: 16px;
-box-shadow: 0 4px 0 #941122;
+    box-shadow: 0 4px 0 var(--roblox-red-dark);
 }
 
-.modal-actions .btn-secondary {
-width: 50%; /* Faz o botão CANCELAR ocupar metade do espaço */
-font-size: 16px;
-}
-
-/* MEDIA QUERY PARA DESKTOP (Ajustes de tamanhos maiores) */
+/* --- MEDIA QUERY PARA DESKTOP --- */
 @media (min-width: 600px) {
-.card {
-  padding: 40px; /* Retorna o padding original */
-}
-.logo {
-  width: 180px;
-}
-.title {
-  font-size: 48px;
-}
-.lead {
-  font-size: 18px;
-}
-.btn-main {
-  padding: 18px 40px;
-  font-size: 22px;
-  box-shadow: 0 8px 0 #941122, 0 0 15px rgba(226, 27, 53, 0.7);
-  width: auto; /* Remove a largura total no desktop */
-}
-.modal-actions {
-  justify-content: flex-end; /* Retorna para o canto direito no desktop */
-}
-.modal-actions .btn-main, 
-.modal-actions .btn-secondary {
-  width: auto; /* Permite que os botões voltem ao tamanho de conteúdo */
-  font-size: 18px;
-}
+    .container {
+        padding: 20px; /* Padding ajustado para desktop */
+    }
+    .card {
+        padding: 40px; 
+    }
+    .logo {
+        width: 180px;
+    }
+    .title {
+        font-size: 48px;
+    }
+    .lead {
+        font-size: 18px;
+    }
+    .btn-main {
+        padding: 18px 40px;
+        font-size: 22px;
+        width: auto; 
+        max-width: none;
+    }
+    .modal-actions {
+        justify-content: flex-end; /* Retorna para o canto direito no desktop */
+    }
+    .modal-actions .btn-main, 
+    .modal-actions .btn-secondary {
+        width: auto; /* Permite que os botões voltem ao tamanho de conteúdo */
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+    .modal-actions .btn-main {
+        padding: 12px 24px;
+    }
 }
 
-/* Animações (Mantidas como estavam) */
+/* --- ANIMAÇÕES (MANTIDAS) --- */
 @keyframes fadeIn {
-from { opacity: 0; transform: translateY(10px); }
-to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes jump {
-from { transform: translateY(0); opacity: 0.5; }
-to { transform: translateY(-15px); opacity: 1; }
+    from { transform: translateY(0); opacity: 0.5; }
+    to { transform: translateY(-15px); opacity: 1; }
 }
 
 @keyframes pop {
-from { transform: scale(0.6); opacity: 0; }
-to { transform: scale(1); opacity: 1; }
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }
