@@ -1,30 +1,197 @@
-:root{
-  --bg:#041026; --card:#0f1b2b; --accent:#163aff; --accent2:#ff4757; --text:#e6eef8;
+/* FONTS */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }
-*{box-sizing:border-box}
-body{
-  margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
-  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: radial-gradient(ellipse at center,#07132a 0%, #041026 100%);
-  color:var(--text);
+
+body {
+  background: #0d0f13;
+  overflow-x: hidden;
 }
-.card{width:min(920px,96%); padding:36px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06)); box-shadow:0 12px 40px rgba(0,0,0,0.6); text-align:center}
-.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.logo{font-weight:800; font-size:18px; color:var(--accent)}
-.subtitle{font-size:13px;color:#bcd2ff}
-h1{font-size:34px;margin:8px 0}
-.lead{color:#cfe0ff;margin-bottom:20px}
-.btn-main{background:linear-gradient(90deg,var(--accent),var(--accent2)); border:none; padding:16px 28px; font-weight:800; border-radius:12px; color:white; cursor:pointer; font-size:18px; box-shadow:0 8px 28px rgba(22,58,255,0.12); transition:transform .12s}
-.btn-main:hover{transform:translateY(-3px)}
-.btn-secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 14px;border-radius:10px;color:var(--text);cursor:pointer}
-.muted{font-size:13px;color:#98a6c9;margin-top:12px}
-.modal-back{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.7)}
-.modal{background:var(--card);padding:20px;border-radius:12px;width:min(680px,92%);box-shadow:0 10px 40px rgba(0,0,0,0.6);text-align:left}
-.consent-list{margin-left:18px;color:#d7e6ff}
-.modal label{display:block;margin-top:12px;color:#d7e6ff}
-.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
-.queue-screen{display:none;padding-top:20px}
-.spinner{height:12px;width:80%;background:rgba(255,255,255,0.06);border-radius:999px;margin:12px auto;overflow:hidden}
-.bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2))}
-#revoke{color:#bcd2ff;text-decoration:underline}
-@media(max-width:520px){ h1{font-size:24px} .card{padding:18px} }
+
+/* BACKGROUND ANIMADO GAMING */
+.bg-animation {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center,#1a1d24,#0d0f13 70%);
+  z-index: -1;
+  animation: pulse 8s infinite alternate;
+}
+
+@keyframes pulse {
+  0% { filter: brightness(1); }
+  100% { filter: brightness(1.3); }
+}
+
+/* CARD CENTRAL */
+.card {
+  max-width: 520px;
+  margin: 80px auto;
+  background: rgba(255,255,255,0.08);
+  padding: 32px;
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.15);
+  box-shadow: 0 0 40px rgba(255,255,255,0.05);
+  text-align: center;
+}
+
+/* HEADER ROBLOX */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  width: 160px;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.3));
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #c5c8cf;
+  letter-spacing: 1px;
+}
+
+/* TEXTOS */
+.title {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 38px;
+  color: #ffffff;
+  margin-top: 20px;
+}
+
+.lead {
+  margin-top: 6px;
+  color: #d0d3db;
+  font-size: 16px;
+}
+
+/* BOTÃO ESTILO ROBLOX */
+.btn-main {
+  margin-top: 20px;
+  background: #ff4242;
+  border: none;
+  color: white;
+  padding: 14px 32px;
+  border-radius: 6px;
+  font-size: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  transition: 0.2s;
+  box-shadow: 0 6px 0 #992828;
+}
+
+.btn-main:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 9px 0 #992828;
+}
+
+.btn-main:active {
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 #992828;
+}
+
+.btn-secondary {
+  background: #34383f;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* FILA */
+.queue-screen {
+  margin-top: 30px;
+  padding: 20px;
+  display: none;
+  animation: fadeIn 0.7s ease forwards;
+}
+
+.queue-title {
+  font-size: 26px;
+  font-family: "Bebas Neue", sans-serif;
+  color: white;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* SPINNER QUADRADO ROBLOX */
+.spinner {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+  gap: 10px;
+}
+
+.square {
+  width: 18px;
+  height: 18px;
+  background: #ff4242;
+  animation: jump 0.6s infinite alternate;
+}
+
+.square2 { animation-delay: 0.2s; }
+.square3 { animation-delay: 0.4s; }
+
+@keyframes jump {
+  from { transform: translateY(0); opacity: 0.6; }
+  to { transform: translateY(-12px); opacity: 1; }
+}
+
+/* MODAL */
+.modal-back {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: none;
+}
+
+.modal {
+  background: #1e2127;
+  color: #fff;
+  width: 90%;
+  max-width: 420px;
+  margin: 130px auto;
+  padding: 25px;
+  border-radius: 12px;
+  animation: pop 0.4s ease;
+}
+
+@keyframes pop {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-title {
+  font-family: "Bebas Neue";
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.checkbox {
+  margin-top: 14px;
+  display: flex;
+  gap: 8px;
+  font-size: 15px;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
