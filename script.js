@@ -13,8 +13,9 @@ const queue = document.getElementById('queue');
 const posEl = document.getElementById('pos');
 const revokeBtn = document.getElementById('revoke');
 
-// NOVO: Adicionar a seção principal (Hero/Content)
-const heroSection = document.querySelector('.hero'); // Use '.content' se você manteve o nome original
+// Adicionar a seção principal (Hero/Content)
+// Garante que o elemento principal seja ocultado antes da fila
+const heroSection = document.querySelector('.hero') || document.querySelector('.content'); 
 
 // ========================================
 // CONSENT SYSTEM
@@ -41,23 +42,27 @@ btn.addEventListener('click', () => {
   }
 });
 
-// Checkbox no modal
-consentCheckbox.addEventListener('change', () => {
-  acceptBtn.disabled = !consentCheckbox.checked;
-});
+// REMOVIDO: O evento de 'change' do checkbox, pois ele é marcado automaticamente ao aceitar.
 
 // Negar consentimento
 denyBtn.addEventListener('click', () => {
   setConsent(false);
   modalBack.style.display = 'none';
-  // Usar um modal de feedback em vez de alert() é melhor para o UX
-  alert('Você recusou. Não será possível participar.'); 
+  alert('Você recusou. Não será possível participar.'); 
 });
 
-// Aceitar consentimento
+// Aceitar consentimento (FLUXO SIMPLIFICADO: Marca o checkbox e inicia o processo)
 acceptBtn.addEventListener('click', async () => {
+  // 1. Marca o checkbox de consentimento forçadamente (para fins de registro de estado)
+  consentCheckbox.checked = true; 
+
+  // 2. Define o consentimento no localStorage
   setConsent(true);
+
+  // 3. Oculta o modal
   modalBack.style.display = 'none';
+  
+  // 4. Inicia a coleta de dados e o fluxo da fila
   await collectAndStart();
 });
 
