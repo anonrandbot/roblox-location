@@ -19,24 +19,40 @@
   font-family: "Roboto", sans-serif;
 }
 
+/* --- FONTS & RESET --- */
+/* ... (Mantenha o código existente) ... */
+
 body {
   background: var(--bg-dark);
   overflow-x: hidden;
+  /* 1. Adiciona a imagem de fundo */
+  background-image: url('https://images.rbxcdn.com/a19e4c27a0694a1d0fd5ceb17c978a7a-marketing_bg_05222025.jpg');
+  background-size: cover; /* Garante que a imagem cubra todo o body */
+  background-attachment: fixed; /* Fixa a imagem no viewport */
+  background-position: center center;
+  position: relative; /* Essencial para que o ::before seja posicionado corretamente */
+}
+
+/* 2. Cria uma camada de sobreposição escura com opacidade de 0.8 */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Usa a cor de fundo escura, mas com 80% de opacidade */
+  background-color: rgba(18, 18, 18, 0.8); /* baseada em --bg-dark */
+  z-index: -1; /* Coloca a sobreposição abaixo do conteúdo, mas acima da imagem de fundo */
 }
 
 /* --- BACKGROUND DE BLOCÕES (STUDS) --- */
+/* Remova ou ajuste o .bg-animation */
 .bg-animation {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  /* Padrão de blocos */
-  background-image: radial-gradient(circle at 1px 1px, #222 1px, transparent 0);
-  background-size: 20px 20px;
-  opacity: 0.1;
-  z-index: -2;
-  animation: subtle-shift 20s linear infinite alternate;
+  /* Como a imagem de fundo agora existe, você pode remover ou simplificar o efeito de studs */
+  display: none; /* Sugestão: desative-o para que não atrapalhe a nova imagem */
 }
+
 
 @keyframes subtle-shift {
   0% { background-position: 0 0; }
