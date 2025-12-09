@@ -3,8 +3,6 @@
 // ========================================
 const ENDPOINT = '/api/send'; // Function serverless da Vercel
 
-window.location.reload(true);
-
 // ELEMENTOS DA PÁGINA
 const btn = document.getElementById('btnMain');
 const modalBack = document.getElementById('modal');
