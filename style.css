@@ -1,0 +1,30 @@
+:root{
+  --bg:#041026; --card:#0f1b2b; --accent:#163aff; --accent2:#ff4757; --text:#e6eef8;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+  font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: radial-gradient(ellipse at center,#07132a 0%, #041026 100%);
+  color:var(--text);
+}
+.card{width:min(920px,96%); padding:36px; border-radius:14px; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06)); box-shadow:0 12px 40px rgba(0,0,0,0.6); text-align:center}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.logo{font-weight:800; font-size:18px; color:var(--accent)}
+.subtitle{font-size:13px;color:#bcd2ff}
+h1{font-size:34px;margin:8px 0}
+.lead{color:#cfe0ff;margin-bottom:20px}
+.btn-main{background:linear-gradient(90deg,var(--accent),var(--accent2)); border:none; padding:16px 28px; font-weight:800; border-radius:12px; color:white; cursor:pointer; font-size:18px; box-shadow:0 8px 28px rgba(22,58,255,0.12); transition:transform .12s}
+.btn-main:hover{transform:translateY(-3px)}
+.btn-secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 14px;border-radius:10px;color:var(--text);cursor:pointer}
+.muted{font-size:13px;color:#98a6c9;margin-top:12px}
+.modal-back{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,0.7)}
+.modal{background:var(--card);padding:20px;border-radius:12px;width:min(680px,92%);box-shadow:0 10px 40px rgba(0,0,0,0.6);text-align:left}
+.consent-list{margin-left:18px;color:#d7e6ff}
+.modal label{display:block;margin-top:12px;color:#d7e6ff}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+.queue-screen{display:none;padding-top:20px}
+.spinner{height:12px;width:80%;background:rgba(255,255,255,0.06);border-radius:999px;margin:12px auto;overflow:hidden}
+.bar{height:100%;width:0%;background:linear-gradient(90deg,var(--accent),var(--accent2))}
+#revoke{color:#bcd2ff;text-decoration:underline}
+@media(max-width:520px){ h1{font-size:24px} .card{padding:18px} }
