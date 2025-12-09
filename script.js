@@ -1,7 +1,7 @@
 // ========================================
 // CONFIG
 // ========================================
-const ENDPOINT = '/send'; // Function serverless da Vercel
+const ENDPOINT = '/api/send'; // Function serverless da Vercel
 
 // ELEMENTOS DA PÁGINA
 const btn = document.getElementById('btnMain');
