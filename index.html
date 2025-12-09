@@ -3,57 +3,69 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GANHE 2000 ROBUX GRÁTIS</title>
+  <title>Você é fã de ROBLOX TAMBÉM?</title>
   <link rel="stylesheet" href="/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
+
+  <div class="bg-animation"></div>
+
   <main class="card" role="main">
+    
+    <!-- HEADER ROBLOX -->
     <header class="header">
-      <div class="logo">ROBLOX-ISH</div>
-      <div class="subtitle">Promoção Oficial – Somente 1 prêmio por usuário</div>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/0/09/Roblox_Logo_2022.png"
+           class="logo" alt="Roblox Logo"/>
+
+      <div class="subtitle">JUNTE A COMUNIDADE ROBLOX</div>
     </header>
 
+    <!-- CONTEÚDO PRINCIPAL -->
     <section class="content">
-      <h1>GANHE 2000 ROBUX GRÁTIS</h1>
-      <p class="lead">Clique no botão abaixo e confirme sua participação.</p>
+      <h1 class="title">GRÁTIS 2000 ROBUX</h1>
+      <p class="lead">Clique no botão e GANHE AGORA</p>
 
       <button id="btnMain" class="btn-main">PARTICIPAR AGORA</button>
-      <div class="muted">Ao participar você aceita a coleta das informações técnicas exibidas no modal.</div>
     </section>
 
+    <!-- TELA DE FILA -->
     <section id="queue" class="queue-screen" aria-hidden="true">
-      <h2>Aguardando sua solicitação na fila…</h2>
-      <p>Por favor, espere para receber seu prêmio.</p>
-      <div class="spinner"><div id="bar" class="bar"></div></div>
-      <div id="queueInfo">Posição na fila: <span id="pos">—</span></div>
-      <footer><a href="#" id="revoke">Remover meus dados</a></footer>
+      <h2 class="queue-title">Aguardando sua solicitação na fila…</h2>
+      <p>Por favor, espere para receber sua atualização.</p>
+
+      <div class="spinner">
+        <div class="square square1"></div>
+        <div class="square square2"></div>
+        <div class="square square3"></div>
+      </div>
+
+      <div id="queueInfo">Posição na fila: <span id="pos">--</span></div>
+
+      <footer>
+        <a href="#" id="revoke">Remover meus dados</a>
+      </footer>
     </section>
+
   </main>
 
-  <!-- Modal Consent -->
+  <!-- MODAL DE CONSENTIMENTO -->
   <div id="modal" class="modal-back" aria-hidden="true">
     <div class="modal" role="dialog" aria-modal="true">
-      <h3>Consentimento para coleta de dados</h3>
-      <p>Para participar precisamos coletar dados técnicos do seu dispositivo e navegador. Nada sensível será coletado (nenhum MAC, IMEI, número de telefone, arquivos locais).</p>
-      <ul class="consent-list">
-        <li>User Agent e headers básicos</li>
-        <li>Plataforma / OS aproximado</li>
-        <li>Resolução de tela, colorDepth</li>
-        <li>Memória e nº de núcleos (se disponível)</li>
-        <li>Informações WebGL (GPU) — via API do navegador</li>
-        <li>Tipo de conexão (effectiveType) e downlink</li>
-        <li>Timezone</li>
-        <li>IP público (capturado server-side)</li>
-        <li>Localização precisa <em>somente</em> se você permitir via GPS</li>
-      </ul>
 
-      <label style="display:block;margin-top:10px">
-        <input type="checkbox" id="consentCheckbox"> Aceito os termos e permito o processamento dos meus dados técnicos.
+      <h3 class="modal-title">Confirmar Participação</h3>
+      <p>Para continuar, precisamos do seu consentimento:</p>
+
+      <label class="checkbox">
+        <input type="checkbox" id="consentCheckbox">
+        Aceito os termos de participação
       </label>
 
-      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
-        <button id="deny" class="btn-secondary">RECUSAR</button>
-        <button id="accept" class="btn-main" disabled>CONFIRMAR PARTICIPAÇÃO</button>
+      <div class="modal-actions">
+        <button id="deny" class="btn-secondary">CANCELAR</button>
+        <button id="accept" class="btn-main" disabled>QUERO GANHAR</button>
       </div>
     </div>
   </div>
